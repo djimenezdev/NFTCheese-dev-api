@@ -36,9 +36,10 @@ app.get("/", async (req, res) => {
     })
   );
   if (
-    req.query.type === "rank" ||
-    req.query.type === "flips" ||
-    req.query.type === "transactions"
+    req.query.type &&
+    (req.query.type === "rank" ||
+      req.query.type === "flips" ||
+      req.query.type === "transactions")
   ) {
     if (req.query.order === "desc") {
       response = data.Items.sort(
