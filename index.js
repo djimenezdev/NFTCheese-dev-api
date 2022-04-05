@@ -12,15 +12,15 @@ app.use(
 );
 
 app.get("/", async (req, res) => {
-  const client = new DynamoDBClient({
+  /* const client = new DynamoDBClient({
     region: process.env.REGION,
     credentials: {
       accessKeyId: process.env.ACCESS_KEY,
       secretAccessKey: process.env.SECRET_KEY,
     },
-  });
+  }); */
   let response = [];
-  let data = await client.send(
+  let data = { Items: [{ yes: "yes" }] }; /* await client.send(
     new ScanCommand({
       TableName: process.env.NAME,
       FilterExpression: "#ranks <= :maximum",
@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
         ":maximum": { N: req.query.amount ? req.query.amount : "25" },
       },
     })
-  );
+  ); */
   if (
     req.query.type === "rank" ||
     req.query.type === "flips" ||
@@ -52,6 +52,6 @@ app.get("/", async (req, res) => {
   res.json(response);
 });
 
-app.listen(() => {
+app.listen(port, () => {
   console.log(`Example app listening: http://localhost:${port}`);
 });
