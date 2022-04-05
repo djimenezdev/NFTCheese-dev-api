@@ -31,7 +31,14 @@ app.get("/", async (req, res) => {
         "#ranks": "rank",
       },
       ExpressionAttributeValues: {
-        ":maximum": { N: req.query.amount ? req.query.amount : "25" },
+        ":maximum": {
+          N:
+            req.query.amount &&
+            typeof parseInt(req.query.amount) === "number" &&
+            parseInt(req.query.amount) >= 1
+              ? req.query.amount
+              : "25",
+        },
       },
     })
   );
@@ -49,6 +56,8 @@ app.get("/", async (req, res) => {
       response = data.Items.sort(
         (a, b) => a[req.query.type]?.N - b[req.query.type]?.N
       );
+    } else {
+      response = data.Items;
     }
   } else {
     response = data.Items;
