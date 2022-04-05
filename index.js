@@ -7,7 +7,10 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: "https://nftcheese-dev-api.herokuapp.com/",
+    origin: [
+      "https://nftcheese-dev-api.herokuapp.com/",
+      "https://nftcheese-assignment.vercel.app",
+    ],
   })
 );
 
@@ -46,7 +49,7 @@ app.get("/", async (req, res) => {
         (a, b) => a[req.query.type].N - b[req.query.type].N
       );
     }
-  } else if (!req.query.type) {
+  } else {
     response = data.Items;
   }
   res.json(response);
