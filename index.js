@@ -52,6 +52,6 @@ app.get("/", async (req, res) => {
   res.json(response);
 });
 
-app.listen(port, () => {
+/* app.listen(() => {
   console.log(`Example app listening: http://localhost:${port}`);
-});
+}); */
