@@ -12,8 +12,9 @@ app.use(
 );
 
 app.get("/", async (req, res) => {
+  console.log(process.env.REGION);
   const client = new DynamoDBClient({
-    region: process.env.REGION,
+    region: "process.env.REGION",
     credentials: {
       accessKeyId: process.env.ACCESS_KEY,
       secretAccessKey: process.env.SECRET_KEY,
@@ -52,6 +53,6 @@ app.get("/", async (req, res) => {
   res.json(response);
 });
 
-/* app.listen(() => {
+app.listen(() => {
   console.log(`Example app listening: http://localhost:${port}`);
-}); */
+});
