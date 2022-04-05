@@ -1,15 +1,15 @@
 const express = require("express");
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const app = express();
-// const cors = require("cors");
+const cors = require("cors");
 const port = 3001;
 require("dotenv").config();
 
-/* app.use(
+app.use(
   cors({
     origin: ["https://nftcheese-dev-api.herokuapp.com/"],
   })
-); */
+);
 
 app.get("/", async (req, res) => {
   const client = new DynamoDBClient({
@@ -52,6 +52,6 @@ app.get("/", async (req, res) => {
   res.json(response);
 });
 
-/* app.listen(() => {
+app.listen(() => {
   console.log(`Example app listening: http://localhost:${port}`);
-}); */
+});
