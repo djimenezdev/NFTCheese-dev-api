@@ -38,7 +38,7 @@ app.get("/", async (req, res) => {
             typeof parseInt(req.query.start) === "number" &&
             parseInt(req.query.start) >= 1
               ? req.query.start
-              : "25",
+              : "0",
         },
         ":maximum": {
           N:
