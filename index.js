@@ -8,8 +8,8 @@ require("dotenv").config();
 app.use(
   cors({
     origin: [
-      "https://nftcheese-dev-api.herokuapp.com/",
       "https://nftcheese-assignment.vercel.app",
+      "http://localhost:3000",
     ],
   })
 );
