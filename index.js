@@ -3,6 +3,7 @@ const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const app = express();
 const cors = require("cors");
 const port = 3001;
+require("dotenv").config();
 
 app.use(
   cors({
@@ -51,6 +52,6 @@ app.get("/", async (req, res) => {
   res.json(response);
 });
 
-app.listen(() => {
+app.listen(port, () => {
   console.log(`Example app listening: http://localhost:${port}`);
 });
