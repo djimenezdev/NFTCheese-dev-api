@@ -10,10 +10,10 @@ app.use(
     origin: ["https://nftcheese-dev-api.herokuapp.com/"],
   })
 );
-console.log(process.env.REGION);
+
 app.get("/", async (req, res) => {
   const client = new DynamoDBClient({
-    region: "process.env.REGION",
+    region: process.env.REGION,
     credentials: {
       accessKeyId: process.env.ACCESS_KEY,
       secretAccessKey: process.env.SECRET_KEY,
