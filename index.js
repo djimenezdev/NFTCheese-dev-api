@@ -2,7 +2,7 @@ const express = require("express");
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const app = express();
 const cors = require("cors");
-const port = 3001;
+const port = process.env.PORT || 3000;
 require("dotenv").config();
 
 app.use(
@@ -12,15 +12,15 @@ app.use(
 );
 
 app.get("/", async (req, res) => {
-  /* const client = new DynamoDBClient({
+  const client = new DynamoDBClient({
     region: process.env.REGION,
     credentials: {
       accessKeyId: process.env.ACCESS_KEY,
       secretAccessKey: process.env.SECRET_KEY,
     },
-  }); */
+  });
   let response = [];
-  let data = { Items: [{ yes: "yes" }] }; /* await client.send(
+  let data = await client.send(
     new ScanCommand({
       TableName: process.env.NAME,
       FilterExpression: "#ranks <= :maximum",
@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
         ":maximum": { N: req.query.amount ? req.query.amount : "25" },
       },
     })
-  ); */
+  );
   if (
     req.query.type === "rank" ||
     req.query.type === "flips" ||
