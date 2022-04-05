@@ -1,9 +1,10 @@
 const express = require("express");
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
-const app = express();
 const cors = require("cors");
-const port = process.env.PORT || 3000;
 require("dotenv").config();
+
+const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(
   cors({
@@ -26,17 +27,25 @@ app.get("/", async (req, res) => {
   let data = await client.send(
     new ScanCommand({
       TableName: process.env.NAME,
-      FilterExpression: "#ranks <= :maximum",
+      FilterExpression: "#ranks <= :maximum and #ranks >= :minimum",
       ExpressionAttributeNames: {
         "#ranks": "rank",
       },
       ExpressionAttributeValues: {
+        ":minimum": {
+          N:
+            req.query.start &&
+            typeof parseInt(req.query.start) === "number" &&
+            parseInt(req.query.start) >= 1
+              ? req.query.start
+              : "25",
+        },
         ":maximum": {
           N:
-            req.query.amount &&
-            typeof parseInt(req.query.amount) === "number" &&
-            parseInt(req.query.amount) >= 1
-              ? req.query.amount
+            req.query.end &&
+            typeof parseInt(req.query.end) === "number" &&
+            parseInt(req.query.end) >= 1
+              ? req.query.end
               : "25",
         },
       },
