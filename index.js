@@ -13,7 +13,10 @@ app.use(
 app.get("/", async (req, res) => {
   const client = new DynamoDBClient({
     region: process.env.REGION,
-    endpoint: "https://nftcheese-dev-api.herokuapp.com/",
+    credentials: {
+      accessKeyId: process.env.ACCESS_KEY,
+      secretAccessKey: process.env.SECRET_KEY,
+    },
   });
   let response = [];
   let data = await client.send(
