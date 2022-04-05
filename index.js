@@ -38,8 +38,8 @@ app.get("/", async (req, res) => {
   if (
     !!req.query.type &&
     (req.query.type === "rank" ||
-      req.query.type === "flips" ||
-      req.query.type === "transactions")
+      req.query.type === "flipsCount" ||
+      req.query.type === "transactionCount")
   ) {
     if (req.query.order === "desc") {
       response = data.Items.sort(
