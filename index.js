@@ -36,18 +36,18 @@ app.get("/", async (req, res) => {
     })
   );
   if (
-    req.query.type &&
+    !!req.query.type &&
     (req.query.type === "rank" ||
       req.query.type === "flips" ||
       req.query.type === "transactions")
   ) {
     if (req.query.order === "desc") {
       response = data.Items.sort(
-        (a, b) => b[req.query.type].N - a[req.query.type].N
+        (a, b) => b[req.query.type]?.N - a[req.query.type]?.N
       );
     } else if (req.query.order === "asc") {
       response = data.Items.sort(
-        (a, b) => a[req.query.type].N - b[req.query.type].N
+        (a, b) => a[req.query.type]?.N - b[req.query.type]?.N
       );
     }
   } else {
